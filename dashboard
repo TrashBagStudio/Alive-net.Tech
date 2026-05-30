@@ -1,0 +1,708 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Alive-net VPN</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@500;600;700;800&display=swap" rel="stylesheet">
+
+<style>
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+:root{
+    --bg:#050814;
+    --card:#101827;
+    --card2:#172133;
+    --blue:#4a76e8;
+    --blue2:#5c87f5;
+    --red:#650006;
+    --red-border:#8f1b22;
+}
+
+body{
+    background:var(--bg);
+    font-family:'Manrope',sans-serif;
+    color:#fff;
+    padding-top:95px;
+}
+
+.container{
+    max-width:560px;
+    margin:auto;
+    padding:14px;
+}
+
+/* ==========================
+   FIXED HEADER
+========================== */
+
+.topbar{
+    position:fixed;
+    top:0;
+    left:0;
+    width:100%;
+    z-index:999;
+    background:rgba(5,8,20,.96);
+    backdrop-filter:blur(14px);
+    border-bottom:1px solid rgba(255,255,255,.05);
+
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+
+    padding:12px 14px;
+}
+
+.logo-block{
+    flex:1;
+    display:flex;
+    align-items:center;
+    justify-content:flex-start;
+    gap:10px;
+    margin-left:12px;
+    min-width:0;
+}
+
+.icon-btn,
+.lang{
+    width:46px;
+    height:46px;
+    border:none;
+    border-radius:14px;
+    background:#11192c;
+    flex-shrink:0;
+}
+
+.icon-btn{
+    display:flex;
+    align-items:center;
+    justify-content:center;
+}
+
+.icon-btn img{
+    width:18px;
+}
+
+.lang{
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-size:15px;
+    font-weight:700;
+}
+
+.logo{
+    width:46px;
+    height:46px;
+    border-radius:14px;
+    background:#4d7dff;
+    flex-shrink:0;
+
+    display:flex;
+    align-items:center;
+    justify-content:center;
+}
+
+.logo img{
+    width:22px;
+}
+
+.project-title{
+    font-size:18px;
+    font-weight:700;
+    line-height:1.15;
+    white-space:nowrap;
+}
+
+.project-id{
+    font-size:12px;
+    color:#8e97aa;
+    margin-top:2px;
+    word-break:break-all;
+}
+
+/* ==========================
+   PAYMENT
+========================== */
+
+.payment-card{
+    margin-top:6px;
+
+    background:var(--red);
+
+    border:1px solid var(--red-border);
+
+    box-shadow:
+        inset 0 1px 0 rgba(255,255,255,.05),
+        0 8px 24px rgba(0,0,0,.35);
+
+    border-radius:18px;
+    padding:16px 18px;
+}
+
+.payment-title{
+    font-size:17px;
+    font-weight:700;
+}
+
+.payment-value{
+    margin-top:6px;
+    font-size:16px;
+    font-weight:700;
+}
+
+.payment-value span{
+    color:#b8bcc8;
+    font-weight:500;
+    font-size:14px;
+}
+
+/* ==========================
+   HEADER STATS
+========================== */
+
+.stats-header{
+    display:flex;
+    align-items:flex-start;
+    justify-content:space-between;
+    gap:12px;
+    margin-top:18px;
+}
+
+.stats-header > div{
+    flex:1;
+    min-width:0;
+}
+
+.stats-title{
+    font-size:18px;
+    font-weight:700;
+    line-height:1.15;
+}
+
+.stats-sub{
+    color:#8b92a2;
+    font-size:14px;
+    margin-top:4px;
+}
+
+.withdraw-btn{
+    flex-shrink:0;
+
+    width:130px;
+    min-width:130px;
+
+    height:46px;
+
+    background:#4a76e8;
+    border-radius:14px;
+
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    gap:6px;
+
+    text-decoration:none;
+    color:#fff;
+
+    font-size:12px;
+    font-weight:700;
+    line-height:1.1;
+    text-align:center;
+
+    padding:0 10px;
+}
+
+.withdraw-btn img{
+    width:14px;
+    flex-shrink:0;
+}
+
+/* ==========================
+   BALANCE
+========================== */
+
+.balance-card{
+    margin-top:14px;
+
+    background:linear-gradient(
+        135deg,
+        #3d69da 0%,
+        #5787ff 100%
+    );
+
+    border-radius:18px;
+    padding:16px;
+}
+
+.balance-top{
+    display:flex;
+    align-items:center;
+    gap:10px;
+}
+
+.wallet-box{
+    width:40px;
+    height:40px;
+    border-radius:10px;
+
+    background:rgba(255,255,255,.18);
+
+    display:flex;
+    align-items:center;
+    justify-content:center;
+}
+
+.wallet-box img{
+    width:20px;
+}
+
+.balance-amount{
+    font-size:22px;
+    font-weight:700;
+}
+
+.balance-label{
+    margin-top:12px;
+    font-size:14px;
+    font-weight:500;
+}
+
+/* ==========================
+   PANEL
+========================== */
+
+.panel{
+    margin-top:20px;
+    background:var(--card);
+    border-radius:18px;
+    padding:16px;
+}
+
+.panel-title{
+    font-size:18px;
+    font-weight:700;
+    margin-bottom:14px;
+}
+
+.info-item{
+    background:var(--card2);
+    border-radius:14px;
+
+    padding:14px;
+
+    margin-bottom:10px;
+
+    display:flex;
+    align-items:flex-start;
+    gap:10px;
+}
+
+.dot{
+    width:10px;
+    height:10px;
+    border-radius:50%;
+    background:#7c5cff;
+    margin-top:6px;
+    flex-shrink:0;
+}
+
+.info-label{
+    color:#9ea5b3;
+    font-size:13px;
+}
+
+.info-value{
+    margin-top:3px;
+    font-size:16px;
+    font-weight:700;
+}
+
+.flags{
+    margin-top:10px;
+    display:flex;
+    gap:6px;
+    flex-wrap:wrap;
+}
+
+.flags img{
+    width:34px;
+    border-radius:6px;
+}
+
+/* ==========================
+   SUPPORT
+========================== */
+
+.support{
+    margin-top:18px;
+    background:#142041;
+    border-radius:18px;
+    padding:16px;
+}
+
+.support-top{
+    display:flex;
+    justify-content:space-between;
+    align-items:flex-start;
+    gap:10px;
+    margin-bottom:12px;
+}
+
+.support-text{
+    max-width:220px;
+    font-size:13px;
+    line-height:1.4;
+}
+
+.brand{
+    background:#1b4fd8;
+    padding:8px 10px;
+    border-radius:10px;
+
+    display:flex;
+    align-items:center;
+    gap:8px;
+}
+
+.brand img{
+    width:16px;
+}
+
+.brand span{
+    font-size:11px;
+    font-weight:700;
+}
+
+.chat-btn{
+    width:100%;
+    height:48px;
+
+    background:var(--blue);
+
+    border-radius:12px;
+
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    gap:8px;
+
+    text-decoration:none;
+    color:#fff;
+
+    font-size:15px;
+    font-weight:700;
+}
+
+.chat-btn img{
+    width:18px;
+}
+
+/* ==========================
+   MOBILE FIXES
+========================== */
+
+@media (max-width:480px){
+
+    .container{
+        padding:12px;
+    }
+
+    .project-title{
+        font-size:16px;
+    }
+
+    .project-id{
+        font-size:11px;
+    }
+
+    .stats-header{
+        flex-direction:row;
+        align-items:flex-start;
+        justify-content:space-between;
+        gap:10px;
+    }
+
+    .withdraw-btn{
+        width:130px;
+        min-width:130px;
+        flex-shrink:0;
+        justify-content:center;
+    }
+
+    .support-top{
+        flex-direction:column;
+    }
+
+    .support-text{
+        max-width:100%;
+    }
+
+    .brand{
+        width:fit-content;
+    }
+
+    .balance-amount{
+        font-size:20px;
+    }
+}
+
+</style>
+</head>
+
+<body>
+
+<div class="container">
+
+    <div class="topbar">
+
+        <button class="icon-btn">
+            <img src="https://raw.githubusercontent.com/TrashBagStudio/AliveCloud/9cf6e540bcc0b81cbc4c9b1be3cca5f1ebbdd42a/images/menu-icon.svg">
+        </button>
+
+        <div class="logo-block">
+
+            <div class="logo">
+                <img src="https://raw.githubusercontent.com/TrashBagStudio/AliveCloud/9cf6e540bcc0b81cbc4c9b1be3cca5f1ebbdd42a/images/organization-icon.svg">
+            </div>
+
+            <div>
+                <div class="project-title">
+                    Alive-net VPN
+                </div>
+
+                <div class="project-id">
+                    ID: Jfkdf2ejof2nvife
+                </div>
+            </div>
+
+        </div>
+
+        <div class="lang">RU</div>
+
+    </div>
+
+    <div class="payment-card">
+        <div class="payment-title">
+            Следующий платеж
+        </div>
+
+        <div class="payment-value" id="nextPayment">
+            ₽5000
+        </div>
+    </div>
+
+    <div class="stats-header">
+
+        <div>
+            <div class="stats-title">
+                Обзор ключевых<br>
+                показателей
+            </div>
+
+            <div class="stats-sub">
+                По кассе
+            </div>
+        </div>
+
+        <a href="#" class="withdraw-btn">
+    <span>
+        Запросить<br>вывод
+    </span>
+    <img src="https://raw.githubusercontent.com/TrashBagStudio/AliveCloud/0824756e225aae8a4af44a9380c8b97dcd10ac95/images/plus-icon-fixed.svg">
+</a>
+
+    </div>
+
+    <div class="balance-card">
+
+        <div class="balance-top">
+            <div class="wallet-box">
+                <img src="https://raw.githubusercontent.com/TrashBagStudio/AliveCloud/9cf6e540bcc0b81cbc4c9b1be3cca5f1ebbdd42a/images/wallet-icon.svg">
+            </div>
+
+            <div class="balance-amount" id="holdBalance">
+                ₽0.00
+            </div>
+        </div>
+
+        <div class="balance-label">
+            Хранение холда (RUB)
+        </div>
+
+    </div>
+
+    <div class="balance-card">
+
+        <div class="balance-top">
+            <div class="wallet-box">
+                <img src="https://raw.githubusercontent.com/TrashBagStudio/AliveCloud/9cf6e540bcc0b81cbc4c9b1be3cca5f1ebbdd42a/images/wallet-icon.svg">
+            </div>
+
+            <div class="balance-amount" id="usdtBalance">
+                ₽0.00
+            </div>
+        </div>
+
+        <div class="balance-label">
+            Доступный баланс (USDT)
+        </div>
+
+    </div>
+
+    <div class="panel">
+
+        <div class="panel-title">
+            Информация о панели
+        </div>
+
+        <div class="info-item">
+
+            <div class="dot"></div>
+
+            <div>
+                <div class="info-label">
+                    Кол-во пользователей
+                </div>
+
+                <div class="info-value" id="usersCount">
+                    0
+                </div>
+            </div>
+
+        </div>
+
+        <div class="info-item">
+
+            <div class="dot"></div>
+
+            <div>
+                <div class="info-label">
+                    Кол-во серверов
+                </div>
+
+                <div class="info-value">
+                    102
+                </div>
+            </div>
+
+        </div>
+
+        <div class="info-item">
+
+            <div class="dot"></div>
+
+            <div>
+
+                <div class="info-label">
+                    Локации
+                </div>
+
+                <div class="flags">
+                    <!-- Вставите свои флаги -->
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <div class="support">
+
+        <div class="support-top">
+
+            <div class="support-text">
+                Если у вас появились вопросы,
+                оставьте сообщение менеджеру
+            </div>
+
+            <div class="brand">
+                <img src="https://raw.githubusercontent.com/TrashBagStudio/AliveCloud/466d739fc955f14c52148f136e6def9c35dcc6db/images/logo-icon.svg">
+                <span>Разработано RatVad HUB</span>
+            </div>
+
+        </div>
+
+        <a href="#" class="chat-btn">
+            <img src="https://raw.githubusercontent.com/TrashBagStudio/AliveCloud/466d739fc955f14c52148f136e6def9c35dcc6db/images/tg-icon.svg">
+            Перейти в чат с менеджером
+        </a>
+
+    </div>
+
+</div>
+
+<script>
+
+function getNextPaymentDate() {
+    const now = new Date();
+
+    const nextMonth = new Date(
+        now.getFullYear(),
+        now.getMonth() + 2,
+        0
+    );
+
+    return nextMonth.toLocaleDateString('ru-RU');
+}
+
+document.getElementById('nextPayment').innerHTML =
+    '₽5000 <span>Должен поступить ' +
+    getNextPaymentDate() +
+    '</span>';
+
+async function loadBalances() {
+
+    const headers = new Headers();
+
+    headers.append("X-MerchantId", "e028e87d-4c44-46fd-8ab4-5e31ddda3803");
+    headers.append("X-Secret", "RuzOxLgyrLXcCElet4xm4kLqJJ4HFRZwfz3t1oPXhe1IswBnfwC9POzqIUWqsG9m1tdwZwYVwDEH6QsLuBz2JtjCFhVm0UfocRoi");
+
+    const response = await fetch(
+        "https://app.platega.io/balance/all",
+        {
+            method:"GET",
+            headers
+        }
+    );
+
+    const data = await response.json();
+
+    const rub = data.find(x => x.currency === 'RUB');
+    const usdt = data.find(x => x.currency === 'USDT');
+
+    document.getElementById('holdBalance').innerText =
+        '₽' + rub.amount.toFixed(2);
+
+    document.getElementById('usdtBalance').innerText =
+        '₽' + usdt.amount.toFixed(2);
+}
+
+async function loadUsers() {
+    const res = await fetch("https://alive-cloud.igorpaprov.workers.dev");
+    const data = await res.json();
+
+    document.getElementById("usersCount").innerText =
+        data.response.stats.totalUniqueDevices;
+}
+
+loadBalances();
+loadUsers();
+
+setInterval(loadBalances, 30000);
+setInterval(loadUsers, 30000);
+
+</script>
+
+</body>
+</html>
