@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!DOCTYPE html> 
 <html lang="ru">
 <head>
 <meta charset="UTF-8">
@@ -33,6 +33,7 @@ body{
     font-family:'Manrope',sans-serif;
     color:#fff;
     padding-top:95px;
+    overflow-x:hidden;
 }
 
 .container{
@@ -73,7 +74,8 @@ body{
 }
 
 .icon-btn,
-.lang{
+.lang,
+.close-menu{
     width:46px;
     height:46px;
     border:none;
@@ -82,13 +84,16 @@ body{
     flex-shrink:0;
 }
 
-.icon-btn{
+.icon-btn,
+.close-menu{
     display:flex;
     align-items:center;
     justify-content:center;
+    cursor:pointer;
 }
 
-.icon-btn img{
+.icon-btn img,
+.close-menu img{
     width:18px;
 }
 
@@ -128,6 +133,237 @@ body{
     color:#8e97aa;
     margin-top:2px;
     word-break:break-all;
+}
+
+/* ==========================
+   FULLSCREEN MENU
+========================== */
+
+.mobile-menu{
+    position:fixed;
+    top:0;
+    left:0;
+    width:100%;
+    height:100vh;
+    background:#11192c;
+    z-index:99999;
+
+    transform:translateX(-100%);
+    transition:transform .28s ease;
+
+    display:flex;
+    flex-direction:column;
+
+    overflow-y:auto;
+}
+
+.mobile-menu.active{
+    transform:translateX(0);
+}
+
+.menu-header{
+    padding:18px 16px 8px;
+}
+
+.menu-top{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    gap:10px;
+}
+
+.menu-right{
+    display:flex;
+    align-items:center;
+    gap:10px;
+}
+
+.menu-logo-wrap{
+    display:flex;
+    align-items:center;
+    gap:10px;
+}
+
+.menu-logo{
+    width:34px;
+    height:34px;
+    border-radius:10px;
+    background:#4d7dff;
+
+    display:flex;
+    align-items:center;
+    justify-content:center;
+}
+
+.menu-logo img{
+    width:16px;
+}
+
+.menu-title{
+    font-size:16px;
+    font-weight:700;
+}
+
+.menu-section{
+    margin-top:24px;
+    color:#7f8797;
+    font-size:13px;
+    padding-left:8px;
+}
+
+.menu-list{
+    margin-top:10px;
+}
+
+.menu-item{
+    width:100%;
+    border:none;
+    background:none;
+    color:#fff;
+    text-decoration:none;
+
+    display:flex;
+    align-items:center;
+    gap:12px;
+
+    padding:14px 16px;
+
+    transition:.2s;
+}
+
+.menu-item.active{
+    background:#142041;
+    border-left:4px solid #4d7dff;
+}
+
+.menu-item:hover{
+    background:#101827;
+}
+
+/* ГЛАВНАЯ */
+
+.menu-icon{
+    width:44px;
+    height:44px;
+    border-radius:14px;
+    background:#4d7dff;
+
+    display:flex;
+    align-items:center;
+    justify-content:center;
+
+    flex-shrink:0;
+}
+
+.menu-icon img{
+    width:20px;
+}
+
+/* НАСТРОЙКИ И ОПЕРАЦИИ */
+
+.menu-icon-gray{
+    width:20px;
+    height:20px;
+
+    display:flex;
+    align-items:center;
+    justify-content:center;
+
+    flex-shrink:0;
+
+    opacity:.65;
+}
+
+.menu-icon-gray img{
+    width:20px;
+}
+
+.menu-text{
+    display:flex;
+    flex-direction:column;
+    align-items:flex-start;
+}
+
+.menu-name{
+    font-size:16px;
+    font-weight:700;
+}
+
+.menu-name.gray{
+    color:#9aa3b7;
+}
+
+.menu-id{
+    font-size:12px;
+    color:#8d96a8;
+    margin-top:2px;
+}
+
+.menu-footer{
+    margin-top:auto;
+    padding:18px 16px 24px;
+}
+
+.menu-support{
+    background:#142041;
+    border-radius:18px;
+    padding:14px;
+}
+
+.menu-support-top{
+    display:flex;
+    align-items:flex-start;
+    justify-content:space-between;
+    gap:10px;
+
+    margin-bottom:12px;
+}
+
+.menu-support-text{
+    font-size:12px;
+    line-height:1.4;
+    max-width:210px;
+}
+
+.menu-brand{
+    background:#1b4fd8;
+    border-radius:10px;
+    padding:7px 9px;
+
+    display:flex;
+    align-items:center;
+    gap:7px;
+}
+
+.menu-brand img{
+    width:14px;
+}
+
+.menu-brand span{
+    font-size:10px;
+    font-weight:700;
+}
+
+.menu-chat-btn{
+    width:100%;
+    height:44px;
+    border-radius:12px;
+    background:#4a76e8;
+
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    gap:8px;
+
+    text-decoration:none;
+    color:#fff;
+
+    font-size:14px;
+    font-weight:700;
+}
+
+.menu-chat-btn img{
+    width:16px;
 }
 
 /* ==========================
@@ -454,6 +690,14 @@ body{
     .balance-amount{
         font-size:20px;
     }
+
+    .menu-support-top{
+        flex-direction:column;
+    }
+
+    .menu-support-text{
+        max-width:100%;
+    }
 }
 
 </style>
@@ -461,18 +705,150 @@ body{
 
 <body>
 
+<!-- FULLSCREEN MENU -->
+
+<div class="mobile-menu" id="mobileMenu">
+
+    <div class="menu-header">
+
+        <div class="menu-top">
+
+            <div class="menu-logo-wrap">
+
+                <div class="menu-logo">
+                    <!-- ВСТАВИШЬ СВОЮ SVG -->
+                    <img src="https://raw.githubusercontent.com/TrashBagStudio/AliveCloud/ebb40c097bc30fc718876be0c96c52d501b343a3/images/logoNotBack-icon.svg">
+                </div>
+
+                <div class="menu-title">
+                    RatVad HUB
+                </div>
+
+            </div>
+
+            <div class="menu-right">
+
+                <div class="lang">RU</div>
+
+                <button class="close-menu" id="closeMenu">
+                    <!-- ВСТАВИШЬ СВОЮ SVG -->
+                    <img src="https://raw.githubusercontent.com/TrashBagStudio/ratvadhub/53f101154a74451653a63c6b77fc50901a0bf295/close-icon.svg">
+                </button>
+
+            </div>
+
+        </div>
+
+        <div class="menu-section">
+            Основное
+        </div>
+
+    </div>
+
+    <div class="menu-list">
+
+        <!-- ССЫЛКУ ВСТАВИШЬ САМ -->
+        <a href="#" class="menu-item active">
+
+            <div class="menu-icon">
+                <img src="https://raw.githubusercontent.com/TrashBagStudio/AliveCloud/9cf6e540bcc0b81cbc4c9b1be3cca5f1ebbdd42a/images/organization-icon.svg">
+            </div>
+
+            <div class="menu-text">
+                <div class="menu-name">
+                    Главная
+                </div>
+
+                <div class="menu-id">
+                    ID: Jfkdf2ejof2nvife;
+                </div>
+            </div>
+
+        </a>
+
+        <!-- ССЫЛКУ ВСТАВИШЬ САМ -->
+        <a href="/settings.html" class="menu-item">
+
+            <div class="menu-icon-gray">
+                <img src="https://raw.githubusercontent.com/TrashBagStudio/ratvadhub/53f101154a74451653a63c6b77fc50901a0bf295/settings-icon.svg">
+            </div>
+
+            <div class="menu-text">
+                <div class="menu-name gray">
+                    Настройки проекта
+                </div>
+            </div>
+
+        </a>
+
+        <!-- ССЫЛКУ ВСТАВИШЬ САМ -->
+        <a href="#" class="menu-item">
+
+            <div class="menu-icon-gray">
+                <img src="https://raw.githubusercontent.com/TrashBagStudio/ratvadhub/53f101154a74451653a63c6b77fc50901a0bf295/card-icon.svg">
+            </div>
+
+            <div class="menu-text">
+                <div class="menu-name gray">
+                    Операции
+                </div>
+            </div>
+
+        </a>
+
+    </div>
+
+    <div class="menu-footer">
+
+        <div class="menu-support">
+
+            <div class="menu-support-top">
+
+                <div class="menu-support-text">
+                    Если у вас появились вопросы,
+                    оставьте сообщение менеджеру
+                </div>
+
+                <div class="menu-brand">
+                    <img src="https://raw.githubusercontent.com/TrashBagStudio/AliveCloud/466d739fc955f14c52148f136e6def9c35dcc6db/images/logo-icon.svg">
+                    <span>Разработано RatVad HUB</span>
+                </div>
+
+            </div>
+
+            <!-- ССЫЛКУ ВСТАВИШЬ САМ -->
+            <a href="#" class="menu-chat-btn">
+
+                <img src="https://raw.githubusercontent.com/TrashBagStudio/AliveCloud/466d739fc955f14c52148f136e6def9c35dcc6db/images/tg-icon.svg">
+
+                Перейти в чат с менеджером
+
+            </a>
+
+        </div>
+
+    </div>
+
+</div>
+
 <div class="container">
 
     <div class="topbar">
 
-        <button class="icon-btn">
+        <button class="icon-btn" id="openMenu">
+
+            <!-- ВСТАВИШЬ СВОЮ SVG -->
             <img src="https://raw.githubusercontent.com/TrashBagStudio/AliveCloud/9cf6e540bcc0b81cbc4c9b1be3cca5f1ebbdd42a/images/menu-icon.svg">
+
         </button>
 
         <div class="logo-block">
 
             <div class="logo">
+
+                <!-- ВСТАВИШЬ СВОЮ SVG -->
                 <img src="https://raw.githubusercontent.com/TrashBagStudio/AliveCloud/9cf6e540bcc0b81cbc4c9b1be3cca5f1ebbdd42a/images/organization-icon.svg">
+
             </div>
 
             <div>
@@ -515,11 +891,12 @@ body{
         </div>
 
         <a href="https://t.me/mystunt?text=Здравствуйте,%20хочу%20запросить%20вывод" class="withdraw-btn" target="_blank">
-    <span>
-        Запросить<br>вывод
-    </span>
-    <img src="https://raw.githubusercontent.com/TrashBagStudio/AliveCloud/0824756e225aae8a4af44a9380c8b97dcd10ac95/images/plus-icon-fixed.svg">
-</a>
+            <span>
+                Запросить<br>вывод
+            </span>
+
+            <img src="https://raw.githubusercontent.com/TrashBagStudio/AliveCloud/0824756e225aae8a4af44a9380c8b97dcd10ac95/images/plus-icon-fixed.svg">
+        </a>
 
     </div>
 
@@ -634,8 +1011,11 @@ body{
         </div>
 
         <a href="https://t.me/mystunt?text=Здравствуйте,%20нужна%20помощь" class="chat-btn" target="_blank">
+
             <img src="https://raw.githubusercontent.com/TrashBagStudio/AliveCloud/466d739fc955f14c52148f136e6def9c35dcc6db/images/tg-icon.svg">
+
             Перейти в чат с менеджером
+
         </a>
 
     </div>
@@ -644,7 +1024,36 @@ body{
 
 <script>
 
+/* ==========================
+   MENU
+========================== */
+
+const mobileMenu = document.getElementById('mobileMenu');
+const openMenu = document.getElementById('openMenu');
+const closeMenu = document.getElementById('closeMenu');
+
+openMenu.addEventListener('click', () => {
+
+    mobileMenu.classList.add('active');
+
+    document.body.style.overflow = 'hidden';
+
+});
+
+closeMenu.addEventListener('click', () => {
+
+    mobileMenu.classList.remove('active');
+
+    document.body.style.overflow = '';
+
+});
+
+/* ==========================
+   PAYMENT DATE
+========================== */
+
 function getNextPaymentDate() {
+
     const now = new Date();
 
     const nextMonth = new Date(
@@ -654,12 +1063,17 @@ function getNextPaymentDate() {
     );
 
     return nextMonth.toLocaleDateString('ru-RU');
+
 }
 
 document.getElementById('nextPayment').innerHTML =
     '₽5000 <span>Должен поступить ' +
     getNextPaymentDate() +
     '</span>';
+
+/* ==========================
+   BALANCES
+========================== */
 
 async function loadBalances() {
 
@@ -682,18 +1096,28 @@ async function loadBalances() {
     const usdt = data.find(x => x.currency === 'USDT');
 
     document.getElementById('holdBalance').innerText =
-        '₽' + rub.amount.toFixed(2);
+        '₽ ' + rub.amount.toFixed(2);
 
     document.getElementById('usdtBalance').innerText =
-        '₽' + usdt.amount.toFixed(2);
+        '$ ' + usdt.amount.toFixed(2);
+
 }
 
+/* ==========================
+   USERS
+========================== */
+
 async function loadUsers() {
-    const res = await fetch("https://alive-cloud.igorpaprov.workers.dev");
+
+    const res = await fetch(
+        "https://alive-cloud.igorpaprov.workers.dev/users"
+    );
+
     const data = await res.json();
 
     document.getElementById("usersCount").innerText =
-        data.response.stats.totalUniqueDevices;
+        data.response.total;
+
 }
 
 loadBalances();
